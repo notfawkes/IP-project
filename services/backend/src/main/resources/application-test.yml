@@ -1,0 +1,38 @@
+server:
+  port: 0
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  flyway:
+    enabled: false
+
+neon:
+  storage:
+    endpoint: http://localhost:9000
+    region: us-east-2
+    access-key: test-access-key
+    secret-key: test-secret-key
+    bucket-name: lab-photos
+
+app:
+  security:
+    jwt:
+      secret: test-secret-key-that-is-at-least-256-bits-long-for-hmac-sha-testing!
+      expiration-hours: 1
+    cors:
+      allowed-origins: http://localhost:3000
+    institutional-domain: "tcetmumbai.org"
+
+logging:
+  level:
+    root: WARN
+    in.tcet.lablending: INFO
