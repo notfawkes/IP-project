@@ -1,0 +1,27 @@
+{
+  "name": "tcet-lab-lending-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TCET Lab Inventory & Equipment Lending Platform - Full-Stack Monorepo",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:frontend": "npm --prefix apps/frontend run dev",
+    "dev:backend": "cd services/backend && mvn spring-boot:run",
+    "dev": "npm run dev:frontend",
+    "build:frontend": "npm --prefix apps/frontend run build",
+    "build:backend": "cd services/backend && mvn clean package -DskipTests",
+    "build": "npm run build:frontend",
+    "test:frontend": "npm --prefix apps/frontend test",
+    "test:backend": "cd services/backend && mvn test",
+    "test": "npm run test:frontend && npm run test:backend",
+    "neon:plan": "neon config plan",
+    "neon:deploy": "neon deploy",
+    "neon:pull": "neon env pull"
+  },
+  "dependencies": {
+    "@neon/config": "^1.9.4",
+    "@neon/env": "^1.6.5"
+  }
+}
