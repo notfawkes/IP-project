@@ -2,8 +2,15 @@ import { api } from '@/lib/api';
 import { AuthResponse, User } from '@/types';
 
 export const authService = {
-  login: async (email: string, password: string): Promise<AuthResponse> => {
-    const res = await api.post<AuthResponse>('/auth/login', { email, password });
+  login: async (
+    emailOrData: string | { email: string; password: string },
+    maybePassword?: string
+  ): Promise<AuthResponse> => {
+    const payload =
+      typeof emailOrData === 'string'
+        ? { email: emailOrData, password: maybePassword! }
+        : emailOrData;
+    const res = await api.post<AuthResponse>('/auth/login', payload);
     if (typeof window !== 'undefined' && res.token) {
       localStorage.setItem('tcet_auth_token', res.token);
       localStorage.setItem('tcet_auth_user', JSON.stringify(res.user));

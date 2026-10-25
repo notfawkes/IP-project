@@ -21,6 +21,7 @@ interface PhotoUploadModalProps {
   onClose: () => void;
   room: Room | null;
   onPhotosUpdated?: () => void;
+  onSuccess?: () => void;
 }
 
 export const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
@@ -28,6 +29,7 @@ export const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
   onClose,
   room,
   onPhotosUpdated,
+  onSuccess,
 }) => {
   const [activeTab, setActiveTab] = useState<'upload' | 'camera' | 'gallery'>('upload');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -185,6 +187,7 @@ export const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
       await loadGallery();
       setActiveTab('gallery');
       if (onPhotosUpdated) onPhotosUpdated();
+      if (onSuccess) onSuccess();
     } catch (err: any) {
       setErrorMessage(err.message || 'Failed to upload photograph to Neon Object Storage.');
     } finally {
@@ -198,6 +201,7 @@ export const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
       await photoService.deletePhoto(photoId);
       await loadGallery();
       if (onPhotosUpdated) onPhotosUpdated();
+      if (onSuccess) onSuccess();
     } catch (err: any) {
       alert(err.message || 'Failed to delete photo.');
     }
@@ -208,6 +212,7 @@ export const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
       await photoService.setPrimaryPhoto(photoId);
       await loadGallery();
       if (onPhotosUpdated) onPhotosUpdated();
+      if (onSuccess) onSuccess();
     } catch (err: any) {
       alert(err.message || 'Failed to set primary photo.');
     }

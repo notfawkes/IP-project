@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WizardModal } from './WizardModal';
 import { Equipment } from '@/types';
 import { requestService } from '@/services/requestService';
@@ -21,15 +21,20 @@ export const RequestModal: React.FC<RequestModalProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [quantity, setQuantity] = useState(1);
-  const [startTime, setStartTime] = useState(
-    new Date(Date.now() + 3600000).toISOString().slice(0, 16)
-  );
-  const [endTime, setEndTime] = useState(
-    new Date(Date.now() + 86400000).toISOString().slice(0, 16)
-  );
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
   const [purpose, setPurpose] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!startTime) {
+      setStartTime(new Date(Date.now() + 3600000).toISOString().slice(0, 16));
+    }
+    if (!endTime) {
+      setEndTime(new Date(Date.now() + 86400000).toISOString().slice(0, 16));
+    }
+  }, [startTime, endTime]);
 
   if (!equipment) return null;
 
