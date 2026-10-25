@@ -57,12 +57,6 @@ public class RoomController {
         return ResponseEntity.ok(roomService.confirmRoom(roomId, admin));
     }
 
-    @GetMapping("/{roomId}/photos")
-    @Operation(summary = "Get all photographs for a room")
-    public ResponseEntity<List<PhotoDTO>> getRoomPhotos(@PathVariable Long roomId) {
-        return ResponseEntity.ok(storageService.getPhotosByRoom(roomId));
-    }
-
     @GetMapping("/{roomId}/equipment")
     @Operation(summary = "Get all equipment assigned to a room")
     public ResponseEntity<List<EquipmentDTO>> getRoomEquipment(@PathVariable Long roomId) {

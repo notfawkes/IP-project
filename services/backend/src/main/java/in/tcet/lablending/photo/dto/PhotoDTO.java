@@ -21,6 +21,7 @@ public class PhotoDTO {
     private String mimeType;
     private Long fileSize;
     private String caption;
+    @com.fasterxml.jackson.annotation.JsonProperty("isPrimary")
     private boolean isPrimary;
     private Long uploadedById;
     private String uploadedByName;
